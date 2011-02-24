@@ -1,0 +1,16 @@
+codeigniter-pack
+
+para tener un paquete base con las siguientes caracteristicas:
+* CI 2.0
+
+
+
+
+CONFIGURACIONES:
+----- mysql
+db: codeigniter-pack
+user: codeigniter-pack
+pass: codeigniter-pack
+
+
+
