@@ -16,14 +16,23 @@ Actualizado en lo posible.
 Contenido
 -----
 * CI_2.0 
+
 http://www.codeigniter.com
-evaluando 
+
+* FirePHP
+
+http://www.firephp.org/
+http://getfirebug.com/
+
 
 * HMVC 
+
 https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc/wiki/Home
 
 * Template library 
+
 http://philsturgeon.co.uk/code/codeigniter-template
+
 
 
 Configuración
