@@ -10,6 +10,7 @@ Descripcion
 -----------
 
 CodeIgniter con adicionales y configurado para facilitar el trabajo en equipo.
+
 Actualizado en lo posible.
 
 
@@ -17,27 +18,28 @@ Contenido
 -----
 * CI_2.0 
 
-http://www.codeigniter.com
+	http://www.codeigniter.com
 
 * FirePHP
 
-http://www.firephp.org/
+	http://www.firephp.org/
 
-http://getfirebug.com/
+	http://getfirebug.com/
 
 
 * HMVC 
 
-https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc/wiki/Home
+	https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc/wiki/Home
 
 * Template library 
 
-http://philsturgeon.co.uk/code/codeigniter-template
+	http://philsturgeon.co.uk/code/codeigniter-template
 
 
 
 Configuración
 -----
+
 * autoload:
 
 	$autoload['libraries']	= array('database', 'session', 'template', 'firephp');
