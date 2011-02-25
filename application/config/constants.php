@@ -37,5 +37,24 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+/*
+|--------------------------------------------------------------------------
+| DEFINO BASE_URL
+|--------------------------------------------------------------------------
+|
+| gracias pyrocms
+|
+*/
+if ($_SERVER['SERVER_PORT'] !== '80')
+{
+	$base_url = "http://".$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+}
+else
+{
+	$base_url = "http://".$_SERVER['SERVER_NAME'].str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+}
+define('BASE_URL', $base_url);
+
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
