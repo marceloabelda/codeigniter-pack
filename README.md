@@ -29,12 +29,17 @@ http://philsturgeon.co.uk/code/codeigniter-template
 Configuración
 -----
 * autoload:
+
 	$autoload['libraries']	= array('database', 'session', 'template', 'firephp');
-	$config['language']	= 'spanish'; 
 
 * config: 
+
+	$config['language']	= 'spanish'; 
+
 	paso BASE_URL como constante
+
 * template: 
+
 	$config['parser_body_enabled'] = TRUE;
 
 
