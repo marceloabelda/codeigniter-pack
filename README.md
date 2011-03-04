@@ -35,6 +35,10 @@ Contenido
 
 	http://philsturgeon.co.uk/code/codeigniter-template
 
+* Ion Auth
+	
+	http://benedmunds.com/ion_auth/
+	
 
 
 Configuración
