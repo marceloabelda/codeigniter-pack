@@ -5,7 +5,7 @@ if ( ! class_exists('Controller'))
 	class Controller extends CI_Controller {}
 }
 
-class Auth extends Controller {
+class Admin extends Controller {
 
 	function __construct()
 	{
@@ -15,6 +15,8 @@ class Auth extends Controller {
 		$this->load->library('form_validation');
 		$this->load->database();
 		$this->load->helper('url');
+		$this->load->helper('users/user');
+		$this->load->model('groups/group_m');
 	}
 
 	//redirect if needed, otherwise display the user list
@@ -23,7 +25,7 @@ class Auth extends Controller {
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
-			redirect('users/auth/login', 'refresh');
+			redirect('users/admin/login', 'refresh');
 		}
 		elseif (!$this->ion_auth->is_admin())
 		{
@@ -33,18 +35,18 @@ class Auth extends Controller {
 		else
 		{
 			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$this->data->message = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
-			$this->data['users'] = $this->ion_auth->get_users_array();
-			$this->load->view('users/auth/index', $this->data);
+			$this->data->users = $this->ion_auth->get_users_array();
+			$this->load->view('users/admin/index', $this->data);
 		}
 	}
 
 	//log the user in
 	function login()
 	{
-		$this->data['title'] = "Login";
+		$this->data->title = "Login";
 
 		//validate form input
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
@@ -65,40 +67,46 @@ class Auth extends Controller {
 			{ //if the login was un-successful
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('users/auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+				redirect('users/admin/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
 		{  //the user is not logging in so display the login page
 			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$this->data->message = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-			$this->data['email'] = array('name' => 'email',
+			$this->data->email = array('name' => 'email',
 				'id' => 'email',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('email'),
 			);
-			$this->data['password'] = array('name' => 'password',
+			$this->data->password = array('name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
 			);
 
-			$this->load->view('users/auth/login', $this->data);
+			$this->load->view('users/admin/login', $this->data);
 		}
 	}
 
 	//log the user out
 	function logout()
 	{
-		$this->data['title'] = "Logout";
+		$this->data->title = "Logout";
 
 		//log the user out
 		$logout = $this->ion_auth->logout();
 
 		//redirect them back to the page they came from
-		redirect('auth', 'refresh');
+		redirect(base_url(), 'refresh');
 	}
 
+	/*
+	 * hasta acá  *****************************
+	 * 
+	 * 
+	 * 
+	 * 
 	//change password
 	function change_password()
 	{
@@ -268,25 +276,28 @@ class Auth extends Controller {
 			redirect('auth', 'refresh');
 		}
 	}
-
+	*/
+	
 	//create a new user
 	function create_user()
 	{
-		$this->data['title'] = "Create User";
+
+		$this->data->groups 			= $this->group_m->get_all();
+		$this->data->groups_select		= array_for_select($this->data->groups, 'id', 'name');
+		
+		$this->data->title = "Create User";
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('admin', 'refresh');
 		}
 
 		//validate form input
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-		$this->form_validation->set_rules('phone1', 'First Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
-		$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
-		$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'required|xss_clean|min_length[4]|max_length[4]');
 		$this->form_validation->set_rules('company', 'Company Name', 'required|xss_clean');
+		$this->form_validation->set_rules('group_id', 'Grupo', 'required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
 
@@ -295,70 +306,63 @@ class Auth extends Controller {
 			$username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
+			$group_id = $this->input->post('group_id');
 
-			$additional_data = array('first_name' => $this->input->post('first_name'),
+
+			$additional_data = array(
+				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
 				'company' => $this->input->post('company'),
-				'phone' => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
+				'group_id' => $this->input->post('group_id'),
 			);
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
 		{ //check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', "User Created");
-			redirect("auth", 'refresh');
+			redirect("users/admin", 'refresh');
 		}
 		else
 		{ //display the create user form
 			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+			$this->data->message = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['first_name'] = array('name' => 'first_name',
+			$this->data->first_name = array('name' => 'first_name',
 				'id' => 'first_name',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('first_name'),
 			);
-			$this->data['last_name'] = array('name' => 'last_name',
+			$this->data->last_name = array('name' => 'last_name',
 				'id' => 'last_name',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('last_name'),
 			);
-			$this->data['email'] = array('name' => 'email',
+			$this->data->email = array('name' => 'email',
 				'id' => 'email',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('email'),
 			);
-			$this->data['company'] = array('name' => 'company',
+			$this->data->company = array('name' => 'company',
 				'id' => 'company',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('company'),
 			);
-			$this->data['phone1'] = array('name' => 'phone1',
-				'id' => 'phone1',
+			$this->data->group_id = array('name' => 'group_id',
+				'id' => "id='group_id'",
 				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone1'),
+				'value' => $this->form_validation->set_value('group_id'),
 			);
-			$this->data['phone2'] = array('name' => 'phone2',
-				'id' => 'phone2',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone2'),
-			);
-			$this->data['phone3'] = array('name' => 'phone3',
-				'id' => 'phone3',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone3'),
-			);
-			$this->data['password'] = array('name' => 'password',
+			$this->data->password = array('name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password'),
 			);
-			$this->data['password_confirm'] = array('name' => 'password_confirm',
+			$this->data->password_confirm = array('name' => 'password_confirm',
 				'id' => 'password_confirm',
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
-			$this->load->view('auth/create_user', $this->data);
+			$this->load->view('users/admin/create_user', $this->data);
 		}
 	}
 

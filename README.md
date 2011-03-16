@@ -39,28 +39,10 @@ Contenido
 	
 	http://benedmunds.com/ion_auth/
 	
-
-
-Configuración
------
-
-* autoload:
-
-	$autoload['libraries']	= array('database', 'session', 'template', 'firephp');
-
-* config: 
-
-	$config['language']	= 'spanish'; 
-
-	paso BASE_URL como constante
-
-* template: 
-
-	$config['parser_body_enabled'] = TRUE;
-
-
-
-
-
+* $config['language']	= 'spanish'; 
+	
+	http://mygengo.com/string/p/codeigniter-2-1
+	
+	
 
 

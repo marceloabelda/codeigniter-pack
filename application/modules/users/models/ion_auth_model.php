@@ -64,7 +64,7 @@ class Ion_auth_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->config('ion_auth', TRUE);
+		$this->load->config('users/ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
 		$this->load->library('session');
@@ -181,39 +181,39 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function activate($id, $code = false)
 	{
-	    if ($code != false)
+	    if ($code !== false)
 	    {
-		$query = $this->db->select($this->identity_column)
-				  ->where('activation_code', $code)
-				  ->limit(1)
-				  ->get($this->tables['users']);
+			$query = $this->db->select($this->identity_column)
+					  ->where('activation_code', $code)
+					  ->limit(1)
+					  ->get($this->tables['users']);
 
-		$result = $query->row();
+			$result = $query->row();
 
-		if ($query->num_rows() !== 1)
-		{
-			return FALSE;
-		}
+			if ($query->num_rows() !== 1)
+			{
+				return FALSE;
+			}
 
-		$identity = $result->{$this->identity_column};
+			$identity = $result->{$this->identity_column};
 
-		$data = array(
-			    'activation_code' => '',
-			    'active'	  => 1
-			     );
+			$data = array(
+					'activation_code' => '',
+					'active'	  => 1
+					 );
 
-		$this->db->where($this->ion_auth->_extra_where);
-		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+			$this->db->where($this->ion_auth->_extra_where);
+			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 	    }
 	    else
 	    {
-		$data = array(
-			    'activation_code' => '',
-			    'active' => 1
-			     );
+			$data = array(
+					'activation_code' => '',
+					'active' => 1
+					 );
 
-		$this->db->where($this->ion_auth->_extra_where);
-		$this->db->update($this->tables['users'], $data, array('id' => $id));
+			$this->db->where($this->ion_auth->_extra_where);
+			$this->db->update($this->tables['users'], $data, array('id' => $id));
 	    }
 
 	    return $this->db->affected_rows() == 1;
@@ -657,6 +657,33 @@ class Ion_auth_model extends CI_Model
 		
 
 	    return $this->db->get($this->tables['users']);
+	}
+
+	/**
+	 * get_users_count
+	 *
+	 * @return int Number of Users
+	 * @author Sven Lueckenbach
+	 **/
+	public function get_users_count($group=false)
+	{
+	    if (is_string($group))
+	    {
+			$this->db->where($this->tables['groups'].'.name', $group);
+	    }
+	    else if (is_array($group))
+	    {
+			$this->db->where_in($this->tables['groups'].'.name', $group);
+	    }
+
+	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
+	    {
+			$this->db->where($this->ion_auth->_extra_where);
+	    }		
+
+		$this->db->from($this->tables['users']);
+
+	    return $this->db->count_all_results();
 	}
 
 	/**
