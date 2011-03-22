@@ -42,7 +42,8 @@ Contenido
 * $config['language']	= 'spanish'; 
 	
 	http://mygengo.com/string/p/codeigniter-2-1
-	
+
+* Admin_controller y Public_controller; 
 	
 
 
