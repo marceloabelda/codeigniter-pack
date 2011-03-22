@@ -4,7 +4,7 @@ CodeIgniter-Pack
 Autor
 ------
 
-Marcelo Abeldaño - <info@abeldanio.com.ar>
+Marcelo Abeldaño - <marcelo@jost.com.ar>
 
 Descripcion
 -----------
