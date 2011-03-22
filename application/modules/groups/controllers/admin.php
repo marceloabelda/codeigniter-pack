@@ -1,11 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-if ( ! class_exists('Controller'))
-{
-	class Controller extends CI_Controller {}
-}
-
-class Admin extends Controller {
+class Admin extends Admin_Controller {
 
 	function __construct()
 	{
@@ -22,25 +17,13 @@ class Admin extends Controller {
 	//redirect if needed, otherwise display the group list
 	function index()
 	{
-		if (!$this->ion_auth->logged_in())
-		{
-			//redirect them to the login page
-			redirect('users/admin/login', 'refresh');
-		}
-		elseif (!$this->ion_auth->is_admin())
-		{
-			//redirect them to the home page because they must be an administrator to view this
-			redirect($this->config->item('base_url'), 'refresh');
-		}
-		else
-		{
 			//set the flash data error message if there is one
 			$this->data->message = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
 			$this->data->groups = $this->ion_auth->get_groups();
 			$this->load->view('groups/admin/index', $this->data);
-		}
+
 	}
 
 	
@@ -49,11 +32,6 @@ class Admin extends Controller {
 	{
 		
 		$this->data->title = "Create Group";
-
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-		{
-			redirect('users/admin', 'refresh');
-		}
 
 		//validate form input
 		$this->form_validation->set_rules('name', 'Nombre', 'required|xss_clean');
