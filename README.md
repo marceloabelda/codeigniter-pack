@@ -35,6 +35,10 @@ Contenido
 
 	http://getsparks.org/packages/template/versions/HEAD/show
 
+* Assets Library
+
+	https://github.com/philsturgeon/codeigniter-asset	
+
 * Ion Auth
 	
 	http://benedmunds.com/ion_auth/
@@ -44,6 +48,9 @@ Contenido
 	http://mygengo.com/string/p/codeigniter-2-1
 
 * Admin_controller y Public_controller; 
-	
+
+* Assets Library
+
+	https://github.com/philsturgeon/codeigniter-asset	
 
 
