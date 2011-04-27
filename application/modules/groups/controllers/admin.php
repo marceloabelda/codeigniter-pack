@@ -22,7 +22,8 @@ class Admin extends Admin_Controller {
 
 			//list the users
 			$this->data->groups = $this->ion_auth->get_groups();
-			$this->load->view('groups/admin/index', $this->data);
+			
+			$this->template->build('groups/admin/index', $this->data);
 
 	}
 
@@ -63,8 +64,10 @@ class Admin extends Admin_Controller {
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('description'),
 			);
+		
+		$this->template
+			->build('groups/admin/create_group', $this->data);
 
-			$this->load->view('groups/admin/create_group', $this->data);
 		}
 	}
 

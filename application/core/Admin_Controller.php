@@ -14,6 +14,15 @@ class Admin_Controller extends MY_Controller
 		  	show_error('acceso denegado');//$this->lang->line('cp_access_denied'));
 		    exit;
 	    }
+	    		
+	    $this->template->set_theme('welcome');
+		$this->data->theme = $this->template->get_theme_path();
+		$this->template
+			->set_layout('admin.html')
+			->set_partial('metadata', 'partials/admin_metadata.html');
+			
+	    
+	    
 		$this->benchmark->mark('admin_controller_end');
 	}
 	

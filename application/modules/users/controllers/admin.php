@@ -19,7 +19,7 @@ class Admin extends Admin_Controller {
 	function index()
 	{
 			$this->data->users = $this->ion_auth->get_users_array();
-			$this->load->view('users/admin/index', $this->data);
+			$this->template->build('users/admin/index', $this->data);
 	}
 
 	//log the user in
@@ -336,7 +336,7 @@ class Admin extends Admin_Controller {
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
-			$this->load->view('users/admin/create_user', $this->data);
+			$this->template->build('users/admin/create_user', $this->data);
 		}
 	}
 

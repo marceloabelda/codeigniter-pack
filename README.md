@@ -50,8 +50,5 @@ Contenido
 
 * Admin_controller y Public_controller; 
 
-* Assets Library
-
-	https://github.com/philsturgeon/codeigniter-asset	
 
 

@@ -20,6 +20,6 @@
 	
 	<p><a href="<?php echo site_url('groups/admin/create_group');?>">Create a new group</a></p>
 	
-	<p><a href="<?php echo site_url('groups/admin/logout'); ?>">Logout</a></p>
+	<p><a href="<?php echo site_url('users/admin/logout'); ?>">Logout</a></p>
 	
 </div>
