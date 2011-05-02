@@ -16,7 +16,7 @@ Actualizado en lo posible.
 
 Contenido
 -----
-* CI_2.0 
+* CI_2.0.2
 
 	http://www.codeigniter.com
 
