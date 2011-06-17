@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'session', 'template', 'firephp','ass
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','array','html');
+$autoload['helper'] = array('url','array','html','form');
 
 
 /*

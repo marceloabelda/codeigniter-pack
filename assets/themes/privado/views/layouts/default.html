@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<?php echo $template['partials']['metadata'];?>
+</head>
+
+<body>
+<div id="wrapper">
+	<header id=header>
+			<?php echo $template['partials']['header']; ?>		
+	</header>
+	
+
+	<nav id=nav>
+		<?php echo $template['partials']['nav']; ?>	
+	</nav>
+	
+		
+	<aside id=aside>
+		<?php echo $template['partials']['aside']; ?>
+	</aside>
+	
+	
+	<section id="content-wrapper">
+		<header id="content-header">
+			<?php echo $template['partials']['content-header'];?>
+			<?php echo $template['partials']['notices']; ?>
+		</header>
+
+		<?php echo $template['body']; ?>
+	</section>
+
+	<footer id=footer>
+		<?php echo $template['partials']['footer']; ?>
+	</footer>
+</div> 
+
+</body>
+</html>

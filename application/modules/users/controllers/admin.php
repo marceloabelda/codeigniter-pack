@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Admin extends Admin_Controller {
+class Admin extends Authenticated_Controller {
 
 	function __construct()
 	{
@@ -24,7 +24,7 @@ class Admin extends Admin_Controller {
 
 	//log the user in
 	function login()
-	{
+	{		
 		$this->data->title = "Login";
 
 		//validate form input
@@ -33,14 +33,13 @@ class Admin extends Admin_Controller {
 
 		if ($this->form_validation->run() == true)
 		{ //check to see if the user is logging in
-			//check for "remember me"
-			$remember = (bool) $this->input->post('remember');
-
-			if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
+			
+			if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password')))
 			{ //if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect($this->config->item('base_url'), 'refresh');
+				//redirect($this->config->item('base_url').'index.php/privado/panel', 'refresh');
+				redirect('privado/panel', 'refresh');
 			}
 			else
 			{ //if the login was un-successful

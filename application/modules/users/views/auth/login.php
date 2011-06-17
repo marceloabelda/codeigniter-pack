@@ -1,3 +1,12 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Login CI-PACK</title>
+</head>
+
+<body>
+
+
 <div class='mainInfo'>
 
 	<div class="pageTitle">Login</div>
@@ -30,3 +39,5 @@
     <?php echo form_close();?>
 
 </div>
+</body>
+</html>

@@ -56,7 +56,7 @@ $config['title_separator'] = ' | ';
 |
 */
 
-$config['theme'] = 'welcome';
+$config['theme'] = 'publico';
 
 /*
 |--------------------------------------------------------------------------
