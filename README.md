@@ -15,7 +15,7 @@ Actualizado en lo posible.
 
 
 Contenido
------
+--------
 * CI_2.0.2
 
 	http://www.codeigniter.com
@@ -48,8 +48,15 @@ Contenido
 	
 	http://mygengo.com/string/p/codeigniter-2-1
 
-* Admin_controller y Public_controller; 
+* My_controller; 
 
 
 * Forensics for CodeIgniter
 	https://github.com/lonnieezell/codeigniter-forensics
+
+TO-DO
+-----
+
+* add datatables (una joyita)
+* revisar usuarios y permisos
+* miles de cosas !!!
