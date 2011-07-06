@@ -25,14 +25,19 @@ class Admin extends Authenticated_Controller {
 	//log the user in
 	function login()
 	{		
+		if ($this->ion_auth->logged_in()) {
+			redirect('privado/panel', 'refresh');
+		}
+			
 		$this->data->title = "Login";
 
 		//validate form input
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
-		if ($this->form_validation->run() == true)
+		if ($this->form_validation->run())
 		{ //check to see if the user is logging in
+			
 			
 			if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password')))
 			{ //if the login is successful

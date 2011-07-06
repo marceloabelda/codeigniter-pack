@@ -58,5 +58,7 @@ TO-DO
 -----
 
 * add datatables (una joyita)
+* utilizar modernizr
 * revisar usuarios y permisos
 * miles de cosas !!!
+

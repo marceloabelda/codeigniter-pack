@@ -31,6 +31,7 @@ class Front_Controller extends Base_Controller {
 		parent::__construct();
 		
 		$this->data->theme = $this->template->get_theme_path();
+
 		$this->template
 			->set_layout('default.html')
 			->set_partial('metadata', 'partials/metadata.html')
@@ -48,10 +49,13 @@ class Authenticated_Controller extends Base_Controller {
 		$this->template->set_theme('privado');
 				
 		$this->data->theme = $this->template->get_theme_path();
+		//$this->data->asset_url = $this->config['asset_url'];
+
+		
 		$this->template
 			->set_layout('default.html')
 			->set_partial('metadata', 'partials/metadata.html')
-			->set_partial('header', 'partials/header.html')
+			->set_partial('header', 'partials/header.php')
 			->set_partial('nav', 'partials/nav.php')
 			->set_partial('aside', 'partials/aside.php')
 			->set_partial('content-header', 'partials/content-header.html')
