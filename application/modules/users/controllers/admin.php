@@ -26,7 +26,7 @@ class Admin extends Authenticated_Controller {
 	function login()
 	{		
 		if ($this->ion_auth->logged_in()) {
-			redirect('privado/panel', 'refresh');
+			redirect('tablero', 'refresh');
 		}
 			
 		$this->data->title = "Login";
@@ -44,7 +44,7 @@ class Admin extends Authenticated_Controller {
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				//redirect($this->config->item('base_url').'index.php/privado/panel', 'refresh');
-				redirect('privado/panel', 'refresh');
+				redirect('tablero', 'refresh');
 			}
 			else
 			{ //if the login was un-successful

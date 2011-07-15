@@ -9,7 +9,7 @@ class Base_Controller extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->output->enable_profiler(true);
+		//$this->output->enable_profiler(true);
 
 		// Load the user model and get user data
         $this->load->library('users/ion_auth');
@@ -56,7 +56,7 @@ class Authenticated_Controller extends Base_Controller {
 			->set_layout('default.html')
 			->set_partial('metadata', 'partials/metadata.html')
 			->set_partial('header', 'partials/header.php')
-			->set_partial('nav', 'partials/nav.php')
+			->set_partial('tabs', 'partials/tabs.php')
 			->set_partial('aside', 'partials/aside.php')
 			->set_partial('content-header', 'partials/content-header.html')
 			->set_partial('notices', 'partials/notices.php')
