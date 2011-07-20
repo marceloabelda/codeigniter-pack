@@ -37,7 +37,7 @@ class Front_Controller extends Base_Controller {
 			->set_partial('metadata', 'partials/metadata.html')
 			->set_partial('header', 'partials/header.html')
 			->set_partial('sidebar', 'partials/sidebar.html')
-			->set_partial('footer', 'partials/footer.html');		
+			->set_partial('footer', 'partials/footer.html');				
 	}
 }
 
@@ -60,6 +60,7 @@ class Authenticated_Controller extends Base_Controller {
 			->set_partial('aside', 'partials/aside.php')
 			->set_partial('content-header', 'partials/content-header.html')
 			->set_partial('notices', 'partials/notices.php')
+			->set_partial('footer-script', 'partials/footer-script.php')
 			->set_partial('footer', 'partials/footer.html');
 	}
 
