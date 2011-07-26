@@ -1,5 +1,5 @@
 <div class='mainInfo'>
-    <table id="datatable">
+    <table id="datatable" class='display'>
         <thead>
             <tr>
 				<th>First Name</th>
