@@ -1,8 +1,4 @@
 <div class='mainInfo'>
-
-	<h1>Create User</h1>
-	<p>Please enter the users information below.</p>
-	
 	<div id="infoMessage"><?php echo $message;?></div>
 	
     <?php echo form_open("users/admin/create_user");?>

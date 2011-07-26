@@ -56,7 +56,7 @@ $config['title_separator'] = ' | ';
 |
 */
 
-$config['theme'] = 'publico';
+$config['theme'] = 'public-theme';
 
 /*
 |--------------------------------------------------------------------------
@@ -71,5 +71,5 @@ $config['theme'] = 'publico';
 
 $config['theme_locations'] = array(
 	APPPATH.'themes/',
-    APPPATH.'../assets/themes/'
+    APPPATH.'../themes/'
 );

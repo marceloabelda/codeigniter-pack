@@ -1,23 +1,34 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Admin extends Authenticated_Controller {
+class Admin extends MY_Controller {
 
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('users/ion_auth');
-		$this->load->library('session');
-		$this->load->library('form_validation');
-		$this->load->database();
-		$this->load->helper('url');
-		$this->load->helper('users/user');
-		$this->load->model('groups/group_m');
+
 	}
 
 	//redirect if needed, otherwise display the user list
 	function index()
 	{
+		
+		
+		$links= array(
+					anchor('users/admin/create_user','Crear Usuario','class="add"'),
+					anchor('users/admin/users/create','Otro link','class="add"'),
+				);		
+		$shortcuts=ul($links);
+				
+		
+		$this->template
+			->set('shortcuts', $shortcuts)
+			->set('tab', 'opciones')
+			->set('menu', 'usuarios')
+			->set('content_header', 'Usuarios -> Lista de usuarios');
+			
+
+			//$this->template->append_metadata();
 			$this->data->users = $this->ion_auth->get_users_array();
 			$this->template->build('users/admin/index', $this->data);
 	}
@@ -26,7 +37,7 @@ class Admin extends Authenticated_Controller {
 	function login()
 	{		
 		if ($this->ion_auth->logged_in()) {
-			redirect('tablero', 'refresh');
+			redirect('users/admin/index', 'refresh');
 		}
 			
 		$this->data->title = "Login";
@@ -44,7 +55,7 @@ class Admin extends Authenticated_Controller {
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				//redirect($this->config->item('base_url').'index.php/privado/panel', 'refresh');
-				redirect('tablero', 'refresh');
+				redirect('users/admin/index', 'refresh');
 			}
 			else
 			{ //if the login was un-successful
@@ -238,6 +249,7 @@ class Admin extends Authenticated_Controller {
 			$this->load->view('auth/deactivate_user', $this->data);
 		}
 		else
+
 		{
 			// do we really want to deactivate?
 			if ($this->input->post('confirm') == 'yes')
@@ -264,6 +276,18 @@ class Admin extends Authenticated_Controller {
 	//create a new user
 	function create_user()
 	{
+		$this->template
+			//->set('shortcuts', $shortcuts)
+			->set('tab', 'opciones')
+			->set('menu', 'usuarios')
+			->set('content_header', 'Usuarios -> Crear Usuario');
+			
+
+			//$this->template->append_metadata();
+			$this->data->users = $this->ion_auth->get_users_array();
+
+
+		
 
 		$this->data->groups 			= $this->group_m->get_all();
 		$this->data->groups_select		= array_for_select($this->data->groups, 'id', 'name');
@@ -297,7 +321,7 @@ class Admin extends Authenticated_Controller {
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
 		{ //check to see if we are creating the user
 			//redirect them back to the admin page
-			$this->session->set_flashdata('message', "User Created");
+			$this->session->set_flashdata('message', "Usuario Creado");
 			redirect("users/admin", 'refresh');
 		}
 		else

@@ -1,15 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends Admin_Controller {
+class Admin extends MY_Controller {
 
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->library('users/ion_auth');
-		$this->load->library('session');
 		$this->load->library('form_validation');
-		$this->load->database();
-		$this->load->helper('url');
 		$this->load->helper('users/user');
 		$this->load->model('groups/group_m');
 	}
@@ -22,6 +19,20 @@ class Admin extends Admin_Controller {
 
 			//list the users
 			$this->data->groups = $this->ion_auth->get_groups();
+			
+			$links= array(
+						anchor('groups/admin/create_user','Crear Grupos','class="add"'),
+						anchor('groups/admin/users/create','Otro link','class="add"'),
+					);		
+			$shortcuts=ul($links);
+				
+		
+			$this->template
+				->set('shortcuts', $shortcuts)
+				->set('tab', 'opciones')
+				->set('menu', 'grupos')
+				->set('content_header', 'Grupos -> Lista de grupos');
+						
 			
 			$this->template->build('groups/admin/index', $this->data);
 

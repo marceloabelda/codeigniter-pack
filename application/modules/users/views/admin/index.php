@@ -1,17 +1,12 @@
 <div class='mainInfo'>
-
-	<h1>Users</h1>
-	<h2>Lista de usuarios.</h2>
-	
-	<div id="read">
-    <table id="records">
+    <table id="datatable">
         <thead>
             <tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Email</th>
-			<th>Group</th>
-			<th>Status</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Group</th>
+				<th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -26,11 +21,4 @@
 		<?php endforeach;?>
         </tbody>
     </table>
-</div>
-
-
-	<p><a href="<?php echo site_url('users/admin/create_user');?>">Create a new user</a></p>
-	
-	<p><a href="<?php echo site_url('users/admin/logout'); ?>">Logout</a></p>
-	
 </div>
