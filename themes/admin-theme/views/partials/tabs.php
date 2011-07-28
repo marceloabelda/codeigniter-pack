@@ -1,22 +1,9 @@
-  <!-- tabs -->
-<?php
-
-function echo_tab($tab, $link, $text) {
-	
-	if ($tab==$link){
-		echo "<li class='selected'> ".anchor($link, $text)." </li>";
-	} else {
-		echo "<li> ".anchor($link, $text)." </li>";
+<ul id="trans-nav">
+		<li><a>CONF. GENERAL</a>
+			<ul>
+				<li><?php echo anchor('users/admin','Usuarios');?></li>
+				<li><?php echo anchor('groups/admin','Grupos');?></li>
+			</ul>
 		
-	}
-	
-	
-	
-}
-	echo "<ul>";
-    echo_tab($tab, 'opciones', 'Opciones');
-    echo "</ul>";
-;
-
-?>
-
+		</li>
+</ul>
